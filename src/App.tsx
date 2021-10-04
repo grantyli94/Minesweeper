@@ -1,17 +1,21 @@
 import './App.css';
+import { useState } from "react";
 import GameBoard from "./GameBoard";
 import _ from "lodash";
 
 type Point = [y: number, x: number];
 
-const gameBoard: string[][] = [];
+let gameBoard: string[][] = [];
 const HEIGHT: number = 9;
 const WIDTH: number = 9;
 const NUM_MINES: number = 10;
-const mines: Point[] = [];
+let mines: Point[] = [];
 const minesSet = new Set();
 
 function generateBoard() {
+  console.log("generateBoard");
+  gameBoard = [];
+
   for (let y = 0; y < HEIGHT; y++) {
     const row = [];
   
@@ -24,6 +28,10 @@ function generateBoard() {
 }
 
 function generateMines() {
+  console.log("generateMines");
+  mines = [];
+  minesSet.clear();
+
   for (let i = 0; i < NUM_MINES; i++) {
     let y = _.random(0, HEIGHT - 1);
     let x = _.random(0, WIDTH - 1);
@@ -46,7 +54,12 @@ generateBoard();
 generateMines();
 
 function App() {
-  function restart() {
+  console.log("App renders");
+  const [restartToggle, setRestartToggle] = useState(0); // forces a re-render
+
+  function restart(): void {
+    console.log("restart");
+    setRestartToggle(num => num + 1);
     generateBoard();
     generateMines();
   }
@@ -57,8 +70,8 @@ function App() {
       <GameBoard 
         gameBoard={gameBoard}
         mines={mines}
+        restart={restart}
       />
-      <button onClick={restart}>Restart</button>
     </div>
   );
 }

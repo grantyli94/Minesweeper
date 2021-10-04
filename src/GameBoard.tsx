@@ -6,16 +6,22 @@ type Point = [y: number, x: number];
 interface Props {
   gameBoard: string[][];
   mines: Point[];
+  restart: () => void;
 }
 
-const directions: number[][] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
+const directions: Point[] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
 
-function GameBoard({ gameBoard, mines }: Props) {
+function GameBoard({ gameBoard, mines, restart }: Props) {
+  console.log("GameBoard renders");
   const [board, setBoard] = useState(gameBoard);
   const [gameOver, setGameOver] = useState(false);
   const currBoard = [...board];
   const HEIGHT = board.length;
   const WIDTH = board[0].length;
+
+  useEffect(() => {
+    setBoard(gameBoard);
+  }, [gameBoard]);
 
   useEffect(() => {
     if (board.every(row => row.every(cell => cell !== "E"))) {
@@ -61,7 +67,7 @@ function GameBoard({ gameBoard, mines }: Props) {
     const [y, x] = point;
 
     for (const [i, j] of directions) {
-      if (0<=y+i && y+i<HEIGHT && 0<=x+j && x+j < WIDTH && board[y+i][x+j] === "M") {
+      if ((0<=y+i && y+i<HEIGHT) && (0<=x+j && x+j<WIDTH) && board[y+i][x+j] === "M") {
         count += 1;
       }
     }
@@ -77,19 +83,27 @@ function GameBoard({ gameBoard, mines }: Props) {
     setBoard(oldBoard => currBoard);
   }
 
+  function restartGame(): void {
+    restart();
+    setGameOver(false);
+  }
+
   return (
-    <table className="GameBoard">
-      {board.map((row, i) => 
-        <tr>{row.map((cell, j) => 
-          <Cell 
-            key={`${i}-${j}`}
-            y={i}
-            x={j}
-            val={cell}
-            reveal={!gameOver ? reveal : undefined}
-          />)}
-        </tr>)}
-    </table>
+    <div>
+      <table className="GameBoard">
+        {board.map((row, i) => 
+          <tr>{row.map((cell, j) => 
+            <Cell 
+              key={`${i}-${j}`}
+              y={i}
+              x={j}
+              val={cell}
+              reveal={!gameOver ? reveal : undefined}
+            />)}
+          </tr>)}
+      </table>
+      <button onClick={restartGame}>Restart</button>
+    </div>
   );
 }
 
