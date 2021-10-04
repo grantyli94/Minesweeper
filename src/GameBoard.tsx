@@ -2,12 +2,13 @@ import React, { MouseEvent, MouseEventHandler, useState } from "react";
 import Cell from "./Cell";
 
 interface Props {
-  gameBoard: String[][]
+  gameBoard: string[][];
+  mines: number[][];
 }
 
 const directions: number[][] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
 
-function GameBoard({ gameBoard }: Props) {
+function GameBoard({ gameBoard, mines }: Props) {
   const [board, setBoard] = useState(gameBoard);
   const [gameOver, setGameOver] = useState(false);
   const currBoard = [...board];
@@ -17,13 +18,13 @@ function GameBoard({ gameBoard }: Props) {
   function reveal(point: number[]): void {
     const [y, x] = point;
     
-    if (y >= HEIGHT || x >= WIDTH || y < 0 || x < 0 || board[y][x] === "") {
+    if (y >= HEIGHT || x >= WIDTH || y < 0 || x < 0 || board[y][x] === "B") {
       return;
     }
 
     if (board[y][x] === "M") {
       currBoard[y][x] = "X";
-      setBoard(oldBoard => currBoard);
+      revealMines();
       alert("GAME OVER");
       setGameOver(true);
       return;
@@ -31,7 +32,7 @@ function GameBoard({ gameBoard }: Props) {
 
     if (currBoard[y][x] === "E") {
       if (numAdjacent(point) < 1) {
-        currBoard[y][x] = "";
+        currBoard[y][x] = "B";
         
         for (const [i, j] of directions) {
           reveal([y+i, x+j]);
@@ -57,6 +58,14 @@ function GameBoard({ gameBoard }: Props) {
     }
     
     return count;
+  }
+
+  function revealMines(): void {
+    for (let [y, x] of mines) {
+      currBoard[y][x] = "X";
+    }
+
+    setBoard(oldBoard => currBoard);
   }
 
   return (

@@ -2,7 +2,7 @@ import './App.css';
 import GameBoard from "./GameBoard";
 import _ from "lodash";
 
-const gameBoard: String[][] = [];
+const gameBoard: string[][] = [];
 const HEIGHT: number = 9;
 const WIDTH: number = 9;
 const NUM_MINES: number = 10;
@@ -49,7 +49,10 @@ function App() {
   return (
     <div className="App">
       <h1>Minesweeper!</h1>
-      <GameBoard gameBoard={gameBoard}/>
+      <GameBoard 
+        gameBoard={gameBoard}
+        mines={mines}
+      />
     </div>
   );
 }
