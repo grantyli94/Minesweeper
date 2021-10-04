@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cell from "./Cell";
 import { Point } from "./interfaces";
+import { directions } from "./variables";
 
 interface Props {
   gameBoard: string[][];
@@ -8,8 +9,6 @@ interface Props {
   restart: () => void;
   restartToggle: number;
 }
-
-const directions: Point[] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
 
 function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
   console.log("GameBoard renders");

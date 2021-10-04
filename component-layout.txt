@@ -12,8 +12,6 @@ Should board exist on App or GameBoard?
 How to know when game ends?
 
 TODO:
-- Difficulty settings (browser router?)
-  - Put it in the App component
 - Add instructions
 - Add footer (github/linkedin)
 - Make generateBoard/generateMines a useEffect + loading state

@@ -2,13 +2,8 @@ import './App.css';
 import { useState } from "react";
 import GameBoard from "./GameBoard";
 import _ from "lodash";
-import { Point, Settings } from "./interfaces";
-
-const settings: Settings = {
-  easy: { HEIGHT: 9, WIDTH: 9, NUM_MINES: 10},
-  medium: { HEIGHT: 16, WIDTH: 16, NUM_MINES: 40},
-  hard: { HEIGHT: 16, WIDTH: 30, NUM_MINES: 99},
-}
+import { Point } from "./interfaces";
+import { settings } from "./variables";
 
 function App() {
   console.log("App renders");
