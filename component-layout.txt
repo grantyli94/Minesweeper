@@ -1,0 +1,19 @@
+Elements inside () represent the props of that component
+Elements inside [] represent the state of that component
+
+App
+  GameBoard (board, numMines) [board]
+    Cell (isMine, setBoard) [isRevealed]
+  
+Need function to determine where mines go on the board
+  - useEffect at the beginning of the game?
+
+Should board exist on App or GameBoard?
+How to know when game ends?
+
+TODO:
+- Restart button
+- Different colors for different numbers
+- YOU WON message
+- Reveal all mines when you lose
+- Right-click to place a flag down

@@ -1,3 +1,18 @@
+.GameBoard {
+  margin: 0 auto;
+}
+
+.Cell {
+  border: 1px solid black;
+  height: 20px;
+  width: 20px;
+}
+
+.hidden {
+  background-color: gray;
+  color: transparent;
+}
+
 .App {
   text-align: center;
 }
