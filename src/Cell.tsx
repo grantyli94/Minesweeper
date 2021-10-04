@@ -1,8 +1,6 @@
 import { MouseEvent, useState, useEffect } from "react";
 import { Point, Mapper } from "./interfaces";
 
-// type Point = [y: number, x: number];
-
 interface Props {
   val: string;
   y: number;
@@ -10,10 +8,6 @@ interface Props {
   reveal?: (point: Point) => void;
   restartToggle: number;
 }
-
-// interface Mapper {
-//   [key: string]: string;
-// }
 
 const classMapper: Mapper = {
   E: "hidden",

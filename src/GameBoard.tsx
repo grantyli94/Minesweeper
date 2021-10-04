@@ -23,6 +23,7 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
   /** Resets gameBoard when prop changes */
   useEffect(function resetGameBoard() {
     setBoard(gameBoard);
+    setGameOver(false);
   }, [gameBoard]);
 
   useEffect(function checkWin() {
@@ -91,6 +92,7 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
   }
 
   function restartGame(): void {
+    console.log("restartGame");
     restart();
     setGameOver(false);
   }
