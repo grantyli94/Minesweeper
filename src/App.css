@@ -42,6 +42,31 @@
   font-weight: bold;
 }
 
+.four {
+  color: navy;
+  font-weight: bold;
+}
+
+.five {
+  color: darkred;
+  font-weight: bold;
+}
+
+.six {
+  color: teal;
+  font-weight: bold;
+}
+
+.seven {
+  color: black;
+  font-weight: bold;
+}
+
+.seven {
+  color: gray;
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
 }

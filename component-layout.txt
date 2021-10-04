@@ -15,3 +15,4 @@ TODO:
 - Add instructions
 - Add footer (github/linkedin)
 - Make generateBoard/generateMines a useEffect + loading state
+- Add color styling for adjacent mines 4+
