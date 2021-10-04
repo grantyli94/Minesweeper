@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from "react";
 import Cell from "./Cell";
-
-type Point = [y: number, x: number];
+import { Point } from "./interfaces";
 
 interface Props {
   gameBoard: string[][];
   mines: Point[];
   restart: () => void;
+  restartToggle: number;
 }
 
 const directions: Point[] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
 
-function GameBoard({ gameBoard, mines, restart }: Props) {
+function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
   console.log("GameBoard renders");
   const [board, setBoard] = useState(gameBoard);
   const [gameOver, setGameOver] = useState(false);
+  
   const currBoard = [...board];
   const HEIGHT = board.length;
   const WIDTH = board[0].length;
 
-  useEffect(() => {
+  /** Resets gameBoard when prop changes */
+  useEffect(function resetGameBoard() {
     setBoard(gameBoard);
   }, [gameBoard]);
 
-  useEffect(() => {
+  useEffect(function checkWin() {
     if (board.every(row => row.every(cell => cell !== "E"))) {
       alert("YOU WON!");
       setGameOver(true);
     }
   }, [board]);
 
+  /**
+   * Recursively reveals cells until arriving at a cell with adjacent mines
+   * If a mine is clicked on, game will end
+   */
   function reveal(point: Point): void {
     const [y, x] = point;
     
@@ -62,6 +68,7 @@ function GameBoard({ gameBoard, mines, restart }: Props) {
     setBoard(oldBoard => currBoard);
   }
 
+  /** Counts the number of mines adjacent to the cell */
   function numAdjacent(point: Point): number {
     let count = 0;
     const [y, x] = point;
@@ -99,6 +106,7 @@ function GameBoard({ gameBoard, mines, restart }: Props) {
               x={j}
               val={cell}
               reveal={!gameOver ? reveal : undefined}
+              restartToggle={restartToggle}
             />)}
           </tr>)}
       </table>

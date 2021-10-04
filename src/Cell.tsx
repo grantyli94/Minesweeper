@@ -1,17 +1,19 @@
-import React, { MouseEvent, useState } from "react";
+import { MouseEvent, useState, useEffect } from "react";
+import { Point, Mapper } from "./interfaces";
 
-type Point = [y: number, x: number];
+// type Point = [y: number, x: number];
 
 interface Props {
   val: string;
   y: number;
   x: number;
   reveal?: (point: Point) => void;
+  restartToggle: number;
 }
 
-interface Mapper {
-  [key: string]: string;
-}
+// interface Mapper {
+//   [key: string]: string;
+// }
 
 const classMapper: Mapper = {
   E: "hidden",
@@ -29,13 +31,17 @@ const classMapper: Mapper = {
   8: "eight"
 };
 
-function Cell({ val, reveal, y, x }: Props) {
+function Cell({ val, reveal, y, x, restartToggle }: Props) {
   const [isFlagged, setIsFlagged] = useState(false);
 
   const tdClass: string = classMapper[val];
   const flag: string = isFlagged ? "F" : "";
 
-  function handleClick(evt: MouseEvent): void {
+  useEffect(function clearFlag() {
+    setIsFlagged(false);
+  }, [restartToggle]);
+
+  function handleLeftClick(evt: MouseEvent): void {
     if (reveal) {
       setIsFlagged(false);
       reveal([y, x]);
@@ -52,7 +58,7 @@ function Cell({ val, reveal, y, x }: Props) {
   return (
     <td 
       className={`Cell ${tdClass} ${flag}`} 
-      onClick={handleClick}
+      onClick={handleLeftClick}
       onContextMenu={handleRightClick}
     >
       {val}

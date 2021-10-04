@@ -2,14 +2,13 @@ import './App.css';
 import { useState } from "react";
 import GameBoard from "./GameBoard";
 import _ from "lodash";
-
-type Point = [y: number, x: number];
+import { Point } from "./interfaces";
 
 let gameBoard: string[][] = [];
+let mines: Point[] = [];
 const HEIGHT: number = 9;
 const WIDTH: number = 9;
 const NUM_MINES: number = 10;
-let mines: Point[] = [];
 const minesSet = new Set();
 
 function generateBoard() {
@@ -71,6 +70,7 @@ function App() {
         gameBoard={gameBoard}
         mines={mines}
         restart={restart}
+        restartToggle={restartToggle}
       />
     </div>
   );

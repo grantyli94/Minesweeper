@@ -12,5 +12,4 @@ Should board exist on App or GameBoard?
 How to know when game ends?
 
 TODO:
-- When restarting, need to remove flags
 - Difficulty settings (browser router?)
