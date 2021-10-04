@@ -14,6 +14,5 @@ How to know when game ends?
 TODO:
 - Restart button
 - Different colors for different numbers
-- YOU WON message
 - Reveal all mines when you lose
-- Right-click to place a flag down
+- Don't allow numbered cells to be flagged

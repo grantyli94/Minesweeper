@@ -13,13 +13,34 @@
   color: transparent;
 }
 
-.B {
+
+.X {
+  background-color: red;
+  font-weight: bold;
+}
+
+.F {
+  background-color: green;
+}
+
+.zero {
   background-color: rgb(207, 205, 205);
   color: transparent;
 }
 
-.X {
-  background-color: red;
+.one {
+  color: blue;
+  font-weight: bold;
+}
+
+.two {
+  color: green;
+  font-weight: bold;
+}
+
+.three {
+  color: red;
+  font-weight: bold;
 }
 
 .App {

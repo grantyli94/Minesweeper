@@ -1,21 +1,16 @@
-import React, { MouseEvent, MouseEventHandler, useState } from "react";
-/**
- * val mappings:
- *    E - not mine - unrevealed
- *    M - mine - unrevealed
- *    B - not mine - revealed
- * 
- */
+import React, { MouseEvent, useState } from "react";
+
+type Point = [y: number, x: number];
 
 interface Props {
   val: string;
   y: number;
   x: number;
-  reveal: (point: number[]) => void;
+  reveal?: (point: Point) => void;
 }
 
 interface Mapper {
-  [E: string]: string;
+  [key: string]: string;
 }
 
 const classMapper: Mapper = {
@@ -23,6 +18,7 @@ const classMapper: Mapper = {
   M: "hidden",
   B: "B",
   X: "X",
+  0: "zero",
   1: "one",
   2: "two",
   3: "three",
@@ -34,17 +30,31 @@ const classMapper: Mapper = {
 };
 
 function Cell({ val, reveal, y, x }: Props) {
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [isFlagged, setIsFlagged] = useState(false);
 
   const tdClass: string = classMapper[val];
+  const flag: string = isFlagged ? "F" : "";
 
   function handleClick(evt: MouseEvent): void {
-    setIsRevealed(true);
-    reveal([y, x]);
+    if (reveal) {
+      setIsFlagged(false);
+      reveal([y, x]);
+    }
+  }
+
+  function handleRightClick(evt: MouseEvent): void {
+    evt.preventDefault();
+    if (reveal && Number.isNaN(Number(val))) {
+      setIsFlagged(state => !state);
+    }
   }
 
   return (
-    <td className={`Cell ${tdClass}`} onClick={handleClick}>
+    <td 
+      className={`Cell ${tdClass} ${flag}`} 
+      onClick={handleClick}
+      onContextMenu={handleRightClick}
+    >
       {val}
     </td>
   );

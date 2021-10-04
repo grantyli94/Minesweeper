@@ -2,11 +2,13 @@ import './App.css';
 import GameBoard from "./GameBoard";
 import _ from "lodash";
 
+type Point = [y: number, x: number];
+
 const gameBoard: string[][] = [];
 const HEIGHT: number = 9;
 const WIDTH: number = 9;
 const NUM_MINES: number = 10;
-const mines: number[][] = [];
+const mines: Point[] = [];
 const minesSet = new Set();
 
 function generateBoard() {
@@ -36,7 +38,6 @@ function generateMines() {
   }
 
   for (let [y, x] of mines) {
-    console.log(y,x);
     gameBoard[y][x] = "M";
   }
 }
@@ -45,6 +46,10 @@ generateBoard();
 generateMines();
 
 function App() {
+  function restart() {
+    generateBoard();
+    generateMines();
+  }
 
   return (
     <div className="App">
@@ -53,6 +58,7 @@ function App() {
         gameBoard={gameBoard}
         mines={mines}
       />
+      <button onClick={restart}>Restart</button>
     </div>
   );
 }

@@ -1,9 +1,11 @@
-import React, { MouseEvent, MouseEventHandler, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cell from "./Cell";
+
+type Point = [y: number, x: number];
 
 interface Props {
   gameBoard: string[][];
-  mines: number[][];
+  mines: Point[];
 }
 
 const directions: number[][] = [[-1,-1], [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1]];
@@ -15,10 +17,17 @@ function GameBoard({ gameBoard, mines }: Props) {
   const HEIGHT = board.length;
   const WIDTH = board[0].length;
 
-  function reveal(point: number[]): void {
+  useEffect(() => {
+    if (board.every(row => row.every(cell => cell !== "E"))) {
+      alert("YOU WON!");
+      setGameOver(true);
+    }
+  }, [board]);
+
+  function reveal(point: Point): void {
     const [y, x] = point;
     
-    if (y >= HEIGHT || x >= WIDTH || y < 0 || x < 0 || board[y][x] === "B") {
+    if (y >= HEIGHT || x >= WIDTH || y < 0 || x < 0 || board[y][x] === "0") {
       return;
     }
 
@@ -32,7 +41,7 @@ function GameBoard({ gameBoard, mines }: Props) {
 
     if (currBoard[y][x] === "E") {
       if (numAdjacent(point) < 1) {
-        currBoard[y][x] = "B";
+        currBoard[y][x] = "0";
         
         for (const [i, j] of directions) {
           reveal([y+i, x+j]);
@@ -47,7 +56,7 @@ function GameBoard({ gameBoard, mines }: Props) {
     setBoard(oldBoard => currBoard);
   }
 
-  function numAdjacent(point: number[]): number {
+  function numAdjacent(point: Point): number {
     let count = 0;
     const [y, x] = point;
 
@@ -77,7 +86,7 @@ function GameBoard({ gameBoard, mines }: Props) {
             y={i}
             x={j}
             val={cell}
-            reveal={reveal}
+            reveal={!gameOver ? reveal : undefined}
           />)}
         </tr>)}
     </table>
