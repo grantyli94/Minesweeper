@@ -4,15 +4,9 @@ Elements inside [] represent the state of that component
 App
   GameBoard (board, numMines) [board]
     Cell (isMine, setBoard) [isRevealed]
-  
-Need function to determine where mines go on the board
-  - useEffect at the beginning of the game?
-
-Should board exist on App or GameBoard?
-How to know when game ends?
 
 TODO:
 - Add instructions
 - Add footer (github/linkedin)
 - Make generateBoard/generateMines a useEffect + loading state
-- Add color styling for adjacent mines 4+
+- Change restartToggle to restartCounter

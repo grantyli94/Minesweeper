@@ -74,7 +74,26 @@ function App() {
   return (
     <div className="App">
       <h1>Minesweeper!</h1>
-      <span onClick={() => changeDifficulty("easy")}>Easy </span> <span onClick={() => changeDifficulty("medium")}>Medium </span> <span onClick={() => changeDifficulty("hard")}>Hard </span>
+      <p>
+        <button 
+          onClick={() => changeDifficulty("easy")}
+          className="difficulty"
+          >
+          Easy
+        </button> 
+        <button 
+          onClick={() => changeDifficulty("medium")}
+          className="difficulty"
+          >
+          Medium
+        </button> 
+        <button 
+          onClick={() => changeDifficulty("hard")}
+          className="difficulty"
+        >
+          Hard
+        </button>
+      </p>
       <GameBoard 
         gameBoard={gameBoard}
         mines={mines}

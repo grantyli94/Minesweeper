@@ -111,6 +111,7 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
             />)}
           </tr>)}
       </table>
+      <br/>
       <button onClick={restartGame}>Restart</button>
     </div>
   );
