@@ -1,12 +1,9 @@
 Elements inside () represent the props of that component
 Elements inside [] represent the state of that component
 
-App
-  GameBoard (board, numMines) [board]
-    Cell (isMine, setBoard) [isRevealed]
+App [restartCount, difficulty, board, mines, loading]
+  GameBoard (gameBoard, mines, restart, restartCount) [board, gameOver]
+    Cell (val, reveal, y, x, restartCount) [isFlagged]
 
 TODO:
-- Add instructions
 - Add footer (github/linkedin)
-- Make generateBoard/generateMines a useEffect + loading state
-- Change restartToggle to restartCounter
