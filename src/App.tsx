@@ -45,6 +45,7 @@ function App() {
   
   return (
     <div className="App">
+        <p><a href="https://github.com/grantyli94/Minesweeper">GitHub Repo</a></p>
       <h1>Minesweeper!</h1>
       <p>
         <button 
@@ -72,6 +73,11 @@ function App() {
         restart={restart}
         restartCount={restartCount}
       />}
+      <h2>Instructions</h2>
+      <p>Left-click on cells to reveal them along with adjacent cells</p>
+      <p>Right-click on cells to flag them</p>
+      <strong><p>Reveal all empty cells to win!</p></strong>
+      <strong><p>If you click on a mine, the game will end!</p></strong>
     </div>
   );
 }
