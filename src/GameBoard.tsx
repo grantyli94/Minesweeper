@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Cell from "./Cell";
 import { Point } from "./interfaces";
 import { directions } from "./variables";
@@ -7,10 +7,10 @@ interface Props {
   gameBoard: string[][];
   mines: Point[];
   restart: () => void;
-  restartToggle: number;
+  restartCount: number;
 }
 
-function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
+function GameBoard({ gameBoard, mines, restart, restartCount }: Props) {
   console.log("GameBoard renders");
   const [board, setBoard] = useState(gameBoard);
   const [gameOver, setGameOver] = useState(false);
@@ -19,8 +19,8 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
   const HEIGHT = board.length;
   const WIDTH = board[0].length;
 
-  /** Resets gameBoard when prop changes */
-  useEffect(function resetGameBoard() {
+  /** Resets board when gameBoard prop changes */
+  useEffect(function resetBoard() {
     setBoard(gameBoard);
     setGameOver(false);
   }, [gameBoard]);
@@ -60,12 +60,12 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
         }
       } else {
         currBoard[y][x] = `${numAdjacent(point)}`;
-        setBoard(oldBoard => currBoard);
+        setBoard(currBoard);
         return;
       }
     }
 
-    setBoard(oldBoard => currBoard);
+    setBoard(currBoard);
   }
 
   /** Counts the number of mines adjacent to the cell */
@@ -74,7 +74,9 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
     const [y, x] = point;
 
     for (const [i, j] of directions) {
-      if ((0<=y+i && y+i<HEIGHT) && (0<=x+j && x+j<WIDTH) && board[y+i][x+j] === "M") {
+      if ((0 <= y + i && y + i < HEIGHT) && 
+          (0 <= x + j && x + j < WIDTH) && 
+          board[y+i][x+j] === "M") {
         count += 1;
       }
     }
@@ -87,7 +89,7 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
       currBoard[y][x] = "X";
     }
 
-    setBoard(oldBoard => currBoard);
+    setBoard(currBoard);
   }
 
   function restartGame(): void {
@@ -107,7 +109,7 @@ function GameBoard({ gameBoard, mines, restart, restartToggle }: Props) {
               x={j}
               val={cell}
               reveal={!gameOver ? reveal : undefined}
-              restartToggle={restartToggle}
+              restartCount={restartCount}
             />)}
           </tr>)}
       </table>

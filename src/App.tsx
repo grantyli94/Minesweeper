@@ -1,75 +1,47 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GameBoard from "./GameBoard";
-import _ from "lodash";
 import { Point } from "./interfaces";
 import { settings } from "./variables";
+import { generateBoard, generateMines } from "./helpers";
 
 function App() {
   console.log("App renders");
-  const [restartToggle, setRestartToggle] = useState(0); // forces a re-render
+  const [restartCount, setRestartCount] = useState(0);
   const [difficulty, setDifficulty] = useState("easy");
+  const [board, setBoard] = useState<string[][]>([]);
+  const [mines, setMines] = useState<Point[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const HEIGHT = settings[difficulty].HEIGHT;
   const WIDTH = settings[difficulty].WIDTH;
   const NUM_MINES = settings[difficulty].NUM_MINES;
 
-  let gameBoard: string[][] = [];
-  let mines: Point[] = [];
-  const minesSet = new Set();
+  useEffect(function startAndRestartGame() {
+    if (loading) setLoading(false);
+    setBoardAndMines(HEIGHT, WIDTH, NUM_MINES);
+  }, [restartCount]);
 
-  function generateBoard(): void {
-    console.log("generateBoard");
-    gameBoard = [];
-  
-    for (let y = 0; y < HEIGHT; y++) {
-      const row = [];
-    
-      for (let x = 0; x < WIDTH; x++) {
-        row.push("E");
-      }
-      
-      gameBoard.push(row);
-    }
-  }
-  
-  function generateMines(): void {
-    console.log("generateMines");
-    mines = [];
-    minesSet.clear();
-  
-    for (let i = 0; i < NUM_MINES; i++) {
-      let y = _.random(0, HEIGHT - 1);
-      let x = _.random(0, WIDTH - 1);
-    
-      while (minesSet.has(`${y}-${x}`)) {
-        y = _.random(0, HEIGHT - 1);
-        x = _.random(0, WIDTH - 1);
-      }
-      
-      minesSet.add(`${y}-${x}`);
-      mines.push([y, x]);
-    }
-  
-    for (let [y, x] of mines) {
-      gameBoard[y][x] = "M";
-    }
+  function setBoardAndMines(height: number, width: number, num_mines: number): void {
+    console.log("setBoardAndMines");
+    const gameBoard = generateBoard(height, width);
+    const gameMines = generateMines(height, width, num_mines);
+
+    gameMines.forEach(([y,x]: Point) => gameBoard[y][x] = "M")
+
+    setBoard(gameBoard);
+    setMines(gameMines);
   }
 
   function restart(): void {
     console.log("restart");
-    setRestartToggle(num => num + 1);
-    generateBoard();
-    generateMines();
+    setRestartCount(num => num + 1);
   }
 
   function changeDifficulty(level: string): void {
-    setRestartToggle(num => num + 1);
     setDifficulty(level);
+    setRestartCount(num => num + 1);
   }
-  
-  generateBoard();
-  generateMines();
   
   return (
     <div className="App">
@@ -94,12 +66,12 @@ function App() {
           Hard
         </button>
       </p>
-      <GameBoard 
-        gameBoard={gameBoard}
+      {!loading && <GameBoard 
+        gameBoard={board}
         mines={mines}
         restart={restart}
-        restartToggle={restartToggle}
-      />
+        restartCount={restartCount}
+      />}
     </div>
   );
 }

@@ -7,10 +7,10 @@ interface Props {
   y: number;
   x: number;
   reveal?: (point: Point) => void;
-  restartToggle: number;
+  restartCount: number;
 }
 
-function Cell({ val, reveal, y, x, restartToggle }: Props) {
+function Cell({ val, reveal, y, x, restartCount }: Props) {
   const [isFlagged, setIsFlagged] = useState(false);
 
   const tdClass: string = classMapper[val];
@@ -18,7 +18,7 @@ function Cell({ val, reveal, y, x, restartToggle }: Props) {
 
   useEffect(function clearFlag() {
     setIsFlagged(false);
-  }, [restartToggle]);
+  }, [restartCount]);
 
   function handleLeftClick(evt: MouseEvent): void {
     if (reveal) {
