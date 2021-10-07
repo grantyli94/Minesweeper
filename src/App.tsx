@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from "react";
 import GameBoard from "./GameBoard";
+import Footer from './Footer';
 import { Point } from "./interfaces";
 import { settings } from "./variables";
 import { generateBoard, generateMines } from "./helpers";
@@ -45,7 +46,6 @@ function App() {
   
   return (
     <div className="App">
-        <p><a href="https://github.com/grantyli94/Minesweeper">GitHub Repo</a></p>
       <h1>Minesweeper!</h1>
       <p>
         <button 
@@ -78,6 +78,7 @@ function App() {
       <p>Right-click on cells to flag them</p>
       <strong><p>Reveal all empty cells to win!</p></strong>
       <strong><p>If you click on a mine, the game will end!</p></strong>
+      <Footer />
     </div>
   );
 }
