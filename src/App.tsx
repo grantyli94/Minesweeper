@@ -74,10 +74,12 @@ function App() {
         restartCount={restartCount}
       />}
       <h2>Instructions</h2>
-      <p>Left-click on cells to reveal them along with adjacent cells</p>
-      <p>Right-click on cells to flag them</p>
-      <strong><p>Reveal all empty cells to win!</p></strong>
-      <strong><p>If you click on a mine, the game will end!</p></strong>
+      <section className="instructions">
+        <p>Left-click on cells to reveal them along with adjacent cells</p>
+        <p>Right-click on cells to flag them</p>
+        <strong><p>Reveal all empty cells to win!</p></strong>
+        <strong><p>If you click on a mine, the game will end!</p></strong>
+      </section>
       <Footer />
     </div>
   );

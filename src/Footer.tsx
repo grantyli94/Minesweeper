@@ -5,14 +5,14 @@ const EMAIL = "mailto:grantyli94@gmail.com"
 function Footer() {
 
   return (
-    <div className="Footer">
+    <footer className="Footer">
       <div className="Footer-Text">
         <span>
           <a href={GITHUB}>GitHub</a> | 
           <a href={LINKEDIN}> LinkedIn</a> | 
           <a href={EMAIL}> Email</a></span>
       </div>
-    </div>
+    </footer>
   );
 }
 
