@@ -21,7 +21,7 @@ function App() {
   useEffect(function startAndRestartGame() {
     if (loading) setLoading(false);
     setBoardAndMines(HEIGHT, WIDTH, NUM_MINES);
-  }, [restartCount]);
+  }, [restartCount, HEIGHT, WIDTH, NUM_MINES, loading]);
 
   function setBoardAndMines(height: number, width: number, num_mines: number): void {
     console.log("setBoardAndMines");
